@@ -1,11 +1,12 @@
-﻿
+
 using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace ToDoList
 {
     public class Task
-    {            
+    {      
+        public int ID { get; set; }
         public string Title { get; set; }
         public DateTime DueDate { get; set; }
         public string Status { get; set; }
@@ -16,8 +17,9 @@ namespace ToDoList
 
         }
 
-        public Task(string title, DateTime dueDate, string status, string project)
+        public Task(int id, string title, DateTime dueDate, string status, string project)
         {
+            ID = id;
             Title = title;
             DueDate = dueDate;
             Status = status;
@@ -44,13 +46,16 @@ namespace ToDoList
 
         public string Print()
         {
-            return "Title: " + Title.PadRight(15) + " " + "Due Date: " + DueDate.ToShortDateString().PadRight(15) + " " +
-                "Status: " + Status.PadRight(15) + " " + "Project: " + Project;
+            return Title.PadRight(25) + DueDate.ToShortDateString().PadRight(25) + Status.PadRight(25) + Project;
+        }
+        public string Save()
+        {
+            return Title + "," + DueDate.ToShortDateString() + "," + Status + "," + Project;
         }
 
         public Task CreateTask()
         {
-            Task task = new Task();                         
+            Task task = new Task();            
 
             while (true)
             {
@@ -128,8 +133,8 @@ namespace ToDoList
                 {
                     DisplayErrorMessage();
                 }
-            }    
-            
+            }
+            ID = FileManager.taskList.Count + 1;
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("The task was added to the list.");
             Console.ResetColor();
