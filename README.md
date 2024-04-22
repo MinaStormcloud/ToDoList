@@ -1,3 +1,3 @@
 # ToDoList
-Please note that the MarkAsDone() method in Program.cs is still under construction.
-File paths are required in FileManager.cs and Program.cs.
+A file path is required in FileManager.cs. 
+(public static string filePath = (Choose a file path);).
