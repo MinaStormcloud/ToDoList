@@ -1,37 +1,28 @@
-﻿
+
 using System.Text.RegularExpressions;
 
 namespace ToDoList
 {
     public static class FileManager
-    {
-        public static string filePath = "(Choose a file path)";
-        private static List<Task> taskList = new List<Task>();
-        
+    {        
+        public static string filePath = (Choose a file path);            
+        public static List<Task> taskList = new List<Task>();        
+
         public static void CreateFile()
         {
             using (StreamWriter sw = new StreamWriter(File.Open(filePath, System.IO.FileMode.Append)))
             {
                 foreach (Task line in taskList)
                 {
-
-                    Task task = (Task)line;                    
+                    Task task = (Task)line;
+                    sw.WriteLine(task.ID);
                     sw.WriteLine(task.Title);
                     sw.WriteLine(task.DueDate);
                     sw.WriteLine(task.Status);
                     sw.WriteLine(task.Project);
                 }
             }
-        }
-
-        public static void ReadFile()
-        {
-            Console.WriteLine();
-            string content = System.IO.File.ReadAllText(filePath);
-            Console.ForegroundColor = ConsoleColor.Magenta;            
-            Console.WriteLine(content);            
-            Console.ResetColor();
-        }         
+        }       
 
         public static void GetCompleted()
         {
@@ -90,27 +81,18 @@ namespace ToDoList
             {
                 Console.WriteLine("No overdue tasks were found.");
             }
-        }       
+        }              
 
-        public static void FindTitle() 
+        public static void PrintHeader() 
         {
-            int counter = 0;
-            string line;
-            Console.WriteLine("Enter the title of a task:");
-            string input = Console.ReadLine();
-            
-            System.IO.StreamReader file = new System.IO.StreamReader(filePath);
-            while ((line = file.ReadLine()) != null)
-            {
-                if (line.Contains(input))
-                {
-                    Console.WriteLine(counter.ToString() + ": " + line);
-                }              
+            Console.WriteLine("Title: ".PadRight(25) + "Due Date: ".PadRight(25) + "Status: ".PadRight(25) + "Project: ");
+            Console.WriteLine("___________________________________________________________________________________");
+        }
 
-                counter++;
-            }
-
-            file.Close();            
-        }                
+        public static void PrintFooter()
+        {            
+            Console.WriteLine("___________________________________________________________________________________");
+            Console.WriteLine();
+        }        
     }
 }
